@@ -12,7 +12,6 @@ struct ListaIngressosComprados: View {
     @EnvironmentObject var compraVm: CompraViewModel
     @State var compraSelecionada: Compra?
     @State var showTicket = false
-        
         var body: some View {
             NavigationStack{
                 List{
@@ -26,11 +25,14 @@ struct ListaIngressosComprados: View {
                 }
                 .listStyle(.plain)
                 .onAppear{
-                    compraVm.fetchComprasData(proprietarioId: "VYRo7ojh6lYMEmRK9amQBbSaihC3")
+                    compraVm.fetchComprasData(proprietarioId: userVm.uuid ?? "n/a")
+                }
+                .refreshable {
+                    compraVm.fetchComprasData(proprietarioId: userVm.uuid ?? "n/a")
+
                 }
                 .navigationTitle("Meus ingressos")
             }
-            
         }
     }
 

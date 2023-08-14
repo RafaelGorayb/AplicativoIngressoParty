@@ -8,6 +8,7 @@ struct SelecaoIngressosView: View {
     @State var showAuthView = false
     @FocusState private var isButtonFocused: Bool
     @Binding var showSelecaoIngressos: Bool
+    @State var continuar = true
     
     var body: some View {
         NavigationStack{
@@ -37,26 +38,31 @@ struct SelecaoIngressosView: View {
                                                 Button("\(number)") {
                                                     //atualizar carrinho com os ingressos selecionados para calcular o valor da compra
                                                     carrinhoVm.updateCart(for: ingresso, lot: minPriceLot, quantity: number)
+                                                    carrinhoVm.carrinho.idEvento = evento.id ?? "n/a"
                                                     
                                                     //criar ingressos no array para serem adicionados ao banco
                                                     compraVm.adicionarIngresso(for: ingresso, lot: minPriceLot, quantity: number, eventoId: evento.id ?? "", proprietarioIngressoId: userVm.uuid ?? "", nomeEvento: evento.tituloEvento, dataEvento: evento.dataInicio, urlFotoCapaEvento: evento.urlFotoCapa)
+                                                    
+                                                    checkCarrinho()
                                                 }
                                             }
                                         } label: {
-                                            Text("\(carrinhoVm.selecionados["\(ingresso.tipo)-\(minPriceLot.numerolote)", default: 0])")
-                                                .frame(width: 35, height: 35, alignment: .center)
-                                                .border(.gray)
+                                            HStack{
+                                                Text("\(carrinhoVm.selecionados["\(ingresso.tipo)-\(minPriceLot.numerolote)", default: 0])")
+                                                    .frame(width: 35, height: 35, alignment: .center)
+                                                    .border(.gray)
+                                                Spacer()
+                                                HStack{
+                                                    Label(ingresso.tipo, systemImage: "ticket")
+                                                    Text("\(minPriceLot.numerolote)º lote")
+                                                    Spacer()
+                                                }
+                                                .padding(.leading)
+                                                Spacer()
+                                                Text("\(minPriceLot.preco.formatted(.currency(code: "brl")))")
+                                            }
                                         }
-                                        
-                                        Spacer()
-                                        HStack{
-                                            Label(ingresso.tipo, systemImage: "ticket")
-                                            Text("\(minPriceLot.numerolote)º lote")
-                                            Spacer()
-                                        }
-                                        .padding(.leading)
-                                        Spacer()
-                                        Text("\(minPriceLot.preco.formatted(.currency(code: "brl")))")
+                                
                                     }
                                     .padding(5)
                                     .foregroundColor(.black)
@@ -103,7 +109,7 @@ struct SelecaoIngressosView: View {
                     .padding(.top)
                     
                     if userVm.userIsAuthenticatedAndSynced {
-                        NavigationLink(destination: ConfirmarIngressosView(costumerid: userVm.user?.stripeId ?? "").environmentObject(carrinhoVm).environmentObject(compraVm), label: {
+                        NavigationLink(destination: ConfirmarIngressosView(costumerid: userVm.user?.stripeId ?? "").environmentObject(carrinhoVm).environmentObject(compraVm).environmentObject(userVm), label: {
 
                                 Text("Confirmar ingressos")
                                     //
@@ -115,7 +121,10 @@ struct SelecaoIngressosView: View {
                                     .animation(.default, value: isButtonFocused)
                                     .shadow(radius: 10)
                                     .focused($isButtonFocused)
+                                    
                         })
+                        .disabled(continuar)
+                        
                     } else{
                        Button("Fazer login", action: {
                            showAuthView = true
@@ -126,9 +135,18 @@ struct SelecaoIngressosView: View {
                 }
                 .padding()
             }
+            
             .sheet(isPresented: $showAuthView, content: {
                 AuthenticationView()
             })
+        }
+    }
+    func checkCarrinho(){
+        if carrinhoVm.carrinho.ingressos.isEmpty {
+            continuar = true
+        }
+        else{
+            continuar = false
         }
     }
 }

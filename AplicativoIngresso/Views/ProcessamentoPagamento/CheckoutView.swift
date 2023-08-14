@@ -9,6 +9,7 @@ import SwiftUI
 import StripePaymentSheet
 
 
+
 struct CheckoutView: View {
     @EnvironmentObject var carrinhoVm: CarrinhoCompraViewModel
     @EnvironmentObject var compraVm: CompraViewModel
@@ -17,132 +18,136 @@ struct CheckoutView: View {
     @State private var isShowingCancelAlert = false
     @State var resultado = ""
     @Environment(\.presentationMode) var presentationMode
-        
     var costumerId: String
     
     var body: some View {
-        NavigationLink(destination: CheckoutResultView(paymentIntentId: carrinhoVm.paymentIntentId).toolbar(.hidden), isActive: $isShowingPgtConfirm) {
-            EmptyView()
-        }
-        VStack {
-            if let paymentSheetFlowController = carrinhoVm.paymentSheetFlowController {
-                HStack {
-                    Text("Concluir pagamento").font(.system(size: 24, weight: .bold)).gradientForeground(colors: [.rosa1, .roxo1]).listRowSeparator(.hidden)
+        NavigationStack{
+            VStack {
+                
+                if let paymentSheetFlowController = carrinhoVm.paymentSheetFlowController {
+                    HStack {
+                        Text("Concluir pagamento").font(.system(size: 24, weight: .bold)).gradientForeground(colors: [.rosa1, .roxo1]).listRowSeparator(.hidden)
+                        Spacer()
+                    }
                     Spacer()
-                }
-                Spacer()
-                //BOTAO DE OPCOES DE PAGAMENTO
-                PaymentSheet.FlowController.PaymentOptionsButton(
-                    paymentSheetFlowController: paymentSheetFlowController,
-                    onSheetDismissed: carrinhoVm.onOptionsCompletion
-                ) {
-                    PaymentOptionView(
-                        paymentOptionDisplayData: paymentSheetFlowController.paymentOption)
-                }
-                Spacer()
-                Divider()
-                //LISTA COM RESUMO DO PEDIDO
-                VStack {
-                    ForEach(Array(carrinhoVm.carrinho.ingressos.enumerated()), id: \.offset) { index, ingressoCarrinho in
-                        HStack{
-                            Text("\(ingressoCarrinho.quantidade)x")
-                                .font(.system(size: 14, weight: .bold))
-                            Text("\(ingressoCarrinho.tipo) - \(ingressoCarrinho.lote.numerolote)º lote")
-                                .font(.system(size: 14, weight: .light))
+                    //BOTAO DE OPCOES DE PAGAMENTO
+                    PaymentSheet.FlowController.PaymentOptionsButton(
+                        paymentSheetFlowController: paymentSheetFlowController,
+                        onSheetDismissed: carrinhoVm.onOptionsCompletion
+                    ) {
+                        PaymentOptionView(
+                            paymentOptionDisplayData: paymentSheetFlowController.paymentOption)
+                    }
+                    Spacer()
+                    Divider()
+                    //LISTA COM RESUMO DO PEDIDO
+                    VStack {
+                        ForEach(Array(carrinhoVm.carrinho.ingressos.enumerated()), id: \.offset) { index, ingressoCarrinho in
+                            HStack{
+                                Text("\(ingressoCarrinho.quantidade)x")
+                                    .font(.system(size: 14, weight: .bold))
+                                Text("\(ingressoCarrinho.tipo) - \(ingressoCarrinho.lote.numerolote)º lote")
+                                    .font(.system(size: 14, weight: .light))
+                                Spacer()
+                            }
+                        }
+                        
+                        HStack {
+                            Text("Taxas: \(carrinhoVm.totalTax.formatted(.currency(code: "brl")))") //taxas
+                                .font(.system(size: 10, weight: .light))
+                                .padding(.leading, 25)
                             Spacer()
                         }
+                        
+                        HStack {
+                            Text("Total: ") //Total
+                            Spacer()
+                            Text("\(carrinhoVm.totalFinalAmount.formatted(.currency(code: "brl")))")
+                        }
+                        .font(.system(size: 14, weight: .bold))
+                        .padding(.top)
+                        
+                    }
+                    .padding()
+                    
+                    NavigationLink(destination: CheckoutResultView(paymentIntentId: carrinhoVm.paymentIntentId).environmentObject(carrinhoVm).environmentObject(compraVm).toolbar(.hidden), isActive: $isShowingPgtConfirm) {
+                        EmptyView()
                     }
                     
-                    HStack {
-                        Text("Taxas: \(carrinhoVm.totalTax.formatted(.currency(code: "brl")))") //taxas
-                            .font(.system(size: 10, weight: .light))
-                            .padding(.leading, 25)
-                        Spacer()
-                    }
+                    //BOTAO PARA FINALIZAR A COMPRA
+                    CustomPaymentButton(isConfirmingPayment: $isConfirmingPayment)
+                        .paymentConfirmationSheet(
+                            isConfirming: $isConfirmingPayment,
+                            paymentSheetFlowController: paymentSheetFlowController,
+                            onCompletion: { result in
+                                // Execute a lógica existente após o pagamento ser concluído
+                                carrinhoVm.onCompletion(result: result)
+                                
+                                switch result {
+                                case .completed:
+                                    compraVm.addCompra(compraVm.compra, statusCompra: "aprovado") { (documentId, error) in
+                                        if let error = error {
+                                            print("Erro ao adicionar compra: \(error.localizedDescription)")
+                                        } else if let documentId = documentId {
+                                            carrinhoVm.updatePaymentIntentMetadata(documentId: documentId, eventoId: compraVm.compra.eventoId)
+                                            EventoViewModel().atualizarIngressosVendidos(carrinho: carrinhoVm.carrinho) { error in
+                                                if let error = error {
+                                                    print("Ocorreu um erro ao atualizar os ingressos: \(error.localizedDescription)")
+                                                } else {
+                                                    print("Ingressos atualizados com sucesso!")
+                                                    self.isShowingPgtConfirm = true
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                    
+                                    print("Pagamento feito com sucesso pelo usuário")
+                                    
+                                case .failed(let error):
+                                    print("Falha no pagamento: \(error.localizedDescription)")
+                                    
+                                case .canceled:
+                                    print("Pagamento cancelado")
+                                }
+                            }
+                        )
+                        .disabled(paymentSheetFlowController.paymentOption == nil || isConfirmingPayment)
                     
-                    HStack {
-                        Text("Total: ") //Total
-                        Spacer()
-                        Text("\(carrinhoVm.totalFinalAmount.formatted(.currency(code: "brl")))")
-                    }
-                    .font(.system(size: 14, weight: .bold))
-                    .padding(.top)
+                } else {
+                    ExampleLoadingView()
                 }
-                .padding()
-                
-                //BOTAO PARA FINALIZAR A COMPRA
-                CustomPaymentButton(isConfirmingPayment: $isConfirmingPayment)
-                    .paymentConfirmationSheet(
-                        isConfirming: $isConfirmingPayment,
-                        paymentSheetFlowController: paymentSheetFlowController,
-                        onCompletion: { result in
-                            // Execute a lógica existente após o pagamento ser concluído
-                            carrinhoVm.onCompletion(result: result)
-                            
-                            switch result {
-                            case .completed:
-                                
-                                compraVm.addCompra(compraVm.compra, statusCompra: "aprovado") { (documentId, error) in
-                                    if let error = error {
-                                        print("Erro ao adicionar compra: \(error.localizedDescription)")
-                                    } else if let documentId = documentId {
-                                        carrinhoVm.updatePaymentIntentMetadata(with: documentId)
+                if let result = carrinhoVm.paymentResult {
+                    PaymentStatusView(result: result)
+                }
+            }
+            .padding()
+            .onAppear { carrinhoVm.preparePaymentSheets(customerID: costumerId, carrinho: carrinhoVm.carrinho) }
+            .toolbar{
+                Button("Cancelar", action: {
+                    isShowingCancelAlert = true   // defina esta variável como verdadeira quando o botão for pressionado
+                })
+                .alert(isPresented: $isShowingCancelAlert) {
+                    Alert(
+                        title: Text("Cancelar Pagamento"),
+                        message: Text("Tem certeza de que deseja cancelar o pagamento?"),
+                        primaryButton: .destructive(Text("Cancelar Pagamento")) {
+                            carrinhoVm.cancelPaymentIntent(){ result in
+                                switch result {
+                                case .success:
+                                    print("O PaymentIntent foi cancelado com sucesso.")
+                                    DispatchQueue.main.async {
+                                        presentationMode.wrappedValue.dismiss()
                                     }
+                                    
+                                case .failure(let error):
+                                    print("Erro ao cancelar o PaymentIntent: \(error)")
                                 }
-
-                                self.isShowingPgtConfirm = true
-                                print("Pagamento feito com sucesso pelo usuário")
-                                
-                            case .failed(let error):
-                                print("Falha no pagamento: \(error.localizedDescription)")
-                            
-                            default:
-                                compraVm.addCompra(compraVm.compra, statusCompra: "iniciado") { (documentId, error) in
-                                    if let error = error {
-                                        print("Erro ao adicionar compra: \(error.localizedDescription)")
-                                    } else if let documentId = documentId {
-                                        carrinhoVm.updatePaymentIntentMetadata(with: documentId)
-                                    }
-                                }
-                                self.isShowingPgtConfirm = true
-                                
                             }
-                        }
+                        },
+                        secondaryButton: .cancel(Text("Manter Pagamento"))
                     )
-                    .disabled(paymentSheetFlowController.paymentOption == nil || isConfirmingPayment)
-                
-            } else {
-                ExampleLoadingView()
-            }
-            if let result = carrinhoVm.paymentResult {
-                PaymentStatusView(result: result)
-            }
-        }
-        .padding()
-        .onAppear { carrinhoVm.preparePaymentSheet(customerID: costumerId, carrinho: carrinhoVm.carrinho) }
-        .toolbar{
-            Button("Cancelar", action: {
-                isShowingCancelAlert = true   // defina esta variável como verdadeira quando o botão for pressionado
-            })
-            .alert(isPresented: $isShowingCancelAlert) {
-                Alert(
-                    title: Text("Cancelar Pagamento"),
-                    message: Text("Tem certeza de que deseja cancelar o pagamento?"),
-                    primaryButton: .destructive(Text("Cancelar Pagamento")) {
-                        carrinhoVm.cancelPaymentIntent(){ result in
-                            switch result {
-                            case .success:
-                                print("O PaymentIntent foi cancelado com sucesso.")
-                            case .failure(let error):
-                                print("Erro ao cancelar o PaymentIntent: \(error)")
-                            }
-                            DispatchQueue.main.async {
-                                presentationMode.wrappedValue.dismiss()
-                            }
-                        }
-                    },
-                    secondaryButton: .cancel(Text("Manter Pagamento"))
-                )
+                }
             }
         }
     }

@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 struct PaymentIntent: Codable {
     let id: String
     let amount: Int

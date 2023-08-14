@@ -7,8 +7,8 @@
 
 import SwiftUI
 import GoogleSignIn
-import Firebase
 import FirebaseAuth
+
 
 struct AuthenticationView: View {
     
@@ -99,6 +99,7 @@ struct SignUpView: View {
     @State private var telefone: Int = 0
     @State private var password: String = ""
     @State private var urlFotoPerfil: String = ""
+    @State private var lastCpfCount: Int = 0
     @State private var dataNascimento = Date()
 
     
@@ -114,14 +115,18 @@ struct SignUpView: View {
             Spacer()
             VStack{
                 FloatingTextField(placeholder: "Nome", text: $nome)
-                FloatingTextField(placeholder: "CPF", text: $cpf).keyboardType(.numberPad)
+                FloatingTextField(placeholder: "Documento CPF", text: $cpf)
+                    .keyboardType(.numberPad)
+                    .onChange(of: cpf) { newValue in
+                        if cpf.count > lastCpfCount {
+                            cpf = formatCPF(cpf)
+                        } else {
+                            cpf = unformatCPF(cpf)
+                        }
+                        
+                        lastCpfCount = cpf.count
+                    }
                 FloatingTextField(placeholder: "Email", text: $email).keyboardType(.emailAddress)
-                //            DatePicker(
-                //                "Start Date",
-                //                 selection: $dataNascimento,
-                //                 in: dateRange,
-                //                 displayedComponents: [.date, .hourAndMinute]
-                //            )
                 DatePicker(
                     "Data de nascimento",
                     selection: $dataNascimento,

@@ -4,8 +4,10 @@ import Combine
 
 class CardListViewModel: ObservableObject {
     @Published var cards = [Card]()
+    @Published var isLoading = false
 
     func loadCards(for customerId: String) {
+        isLoading = true
         // Substitua pela URL do seu servidor
         guard let url = URL(string: "\(serverUrl)/cards") else {
             return
@@ -24,6 +26,7 @@ class CardListViewModel: ObservableObject {
                 if let cards = try? decoder.decode([Card].self, from: data) {
                     DispatchQueue.main.async {
                         self.cards = cards
+                        self.isLoading = false  // Defina como false quando terminar de carregar
                     }
                 }
             }
@@ -32,7 +35,7 @@ class CardListViewModel: ObservableObject {
     
     func deleteCard(id: String, customerId: String) {
         // Substitua pela URL do seu servidor
-        guard let url = URL(string: "\(serverUrl)/delete-card/\(id)") else {
+        guard let url = URL(string: "\(serverUrl)/delete-card?id=\(id)") else {
             return
         }
 

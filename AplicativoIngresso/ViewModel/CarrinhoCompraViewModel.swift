@@ -10,6 +10,25 @@ import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 import StripePaymentSheet
+import Combine
+
+struct PaymentResponse: Codable {
+    let paymentId: String
+    let publishableKey: String
+    let paymentIntent: String
+    let customer: String
+    let ephemeralKey: String
+    // Você pode adicionar outros campos conforme necessário
+}
+
+struct ServerResponse: Codable {
+    let paymentId: String
+    let publishableKey: String
+    let paymentIntent: String
+    let customer: String
+    let ephemeralKey: String
+}
+
 
 
 class CarrinhoCompraViewModel: ObservableObject {
@@ -21,91 +40,191 @@ class CarrinhoCompraViewModel: ObservableObject {
     @Published var paymentIntentId = ""
     @Published var selecionados: [String: Int] = [:]
     @Published var paymentIntent: PaymentIntent?
-
-    func preparePaymentSheet(customerID: String, carrinho: Carrinho) {
-        // MARK: Fetch the PaymentIntent and Customer information from the backend
-        var request = URLRequest(url: backendCheckoutUrl)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    @Published var response: ServerResponse?
+    @Published var errorMessage: String?
+    var cancellables = Set<AnyCancellable>()
         
-        do {
-            let carrinhoData = try JSONEncoder().encode(carrinho)
-            let paymentInfo: [String: Any] = ["customerID": customerID, "carrinho": String(data: carrinhoData, encoding: .utf8)!]
-            let postData = try JSONSerialization.data(withJSONObject: paymentInfo, options: [])
-            request.httpBody = postData
-        } catch {
-            print("Falha ao codificar o carrinho e/ou o custumerID: \(error)")
-            return
-        }
-
-        let task = URLSession.shared.dataTask(
-            with: request,
-            completionHandler: { (data, _, error) in
-                guard let data = data,
-                      let json = try? JSONSerialization.jsonObject(with: data, options: [])
-                          as? [String: Any],
-                      let paymentId = json["paymentId"] as? String,
-                      let customerId = json["customer"] as? String,
-                      let customerEphemeralKeySecret = json["ephemeralKey"] as? String,
-                      let paymentIntentClientSecret = json["paymentIntent"] as? String,
-                      let publishableKey = json["publishableKey"] as? String
-                else {
-                    print(error!.localizedDescription)
-                    // Handle error
-                    return
+        func preparePaymentSheets(customerID: String, carrinho: Carrinho) {
+            guard let url = URL(string: "\(serverUrl)/paymentIntentCreate") else {
+                errorMessage = "URL inválida."
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            do {
+                let carrinhoData = try JSONEncoder().encode(carrinho)
+                let paymentInfo: [String: Any] = ["customerID": customerID, "carrinho": String(data: carrinhoData, encoding: .utf8)!]
+                let postData = try JSONSerialization.data(withJSONObject: paymentInfo, options: [])
+                request.httpBody = postData
+            } catch {
+                errorMessage = "Falha ao codificar o carrinho e/ou o customerID: \(error)"
+                return
+            }
+            
+            URLSession.shared.dataTaskPublisher(for: request)
+                .tryMap { data, response -> Data in
+                    guard let httpResponse = response as? HTTPURLResponse,
+                          httpResponse.statusCode == 200 else {
+                        throw URLError(.badServerResponse)
+                    }
+                    return data
                 }
-                self.paymentIntentId = paymentId
-                // MARK: Set your Stripe publishable key - this allows the SDK to make requests to Stripe for your account
-                STPAPIClient.shared.publishableKey = publishableKey
-
-                // MARK: Create a PaymentSheet instance
-                
-                //Configuracoes paymentSheet - cores
-                var appearance = PaymentSheet.Appearance()
-                var configuration = PaymentSheet.Configuration()
-                appearance.font.base = UIFont(name: "AvenirNext-Regular", size: UIFont.systemFontSize)!
-                appearance.cornerRadius = 12
-                appearance.shadow = .disabled
-                appearance.borderWidth = 0.5
-                appearance.colors.background = .white
-                appearance.colors.primary = UIColor (.rosa1)
-                appearance.colors.textSecondary = .black
-                appearance.colors.componentPlaceholderText = UIColor(red: 115/255, green: 117/255, blue: 123/255, alpha: 1)
-                appearance.colors.componentText = .black
-                appearance.colors.componentBorder = UIColor(red: 195/255, green: 213/255, blue: 200/255, alpha: 1)
-                appearance.colors.componentDivider = UIColor(red: 195/255, green: 213/255, blue: 200/255, alpha: 1)
-                appearance.colors.componentBackground = .clear
-                appearance.primaryButton.cornerRadius = 12
-                configuration.appearance = appearance
-                //Configuracoes paymentSheet
-                configuration.merchantDisplayName = "Party eventos"
-                configuration.style = .alwaysLight
-                configuration.defaultBillingDetails.address.country = "BR"
-                configuration.billingDetailsCollectionConfiguration.name = .always
-                configuration.billingDetailsCollectionConfiguration.email = .automatic
-                configuration.billingDetailsCollectionConfiguration.address = .full
-                configuration.billingDetailsCollectionConfiguration.attachDefaultsToPaymentMethod = true
-                configuration.applePay = .init(merchantId: "com.foo.example", merchantCountryCode: "BR")
-                configuration.customer = .init(id: customerId, ephemeralKeySecret: customerEphemeralKeySecret)
-                configuration.returnURL = "payments-example://stripe-redirect"
-                configuration.allowsDelayedPaymentMethods = true
-                
-                PaymentSheet.FlowController.create(
-                    paymentIntentClientSecret: paymentIntentClientSecret,
-                    configuration: configuration
-                ) { [weak self] result in
-                    switch result {
+                .decode(type: ServerResponse.self, decoder: JSONDecoder())
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        break
                     case .failure(let error):
-                        print(error)
-                    case .success(let paymentSheetFlowController):
-                        DispatchQueue.main.async {
-                            self?.paymentSheetFlowController = paymentSheetFlowController
-                        }
+                        self.errorMessage = "Erro na requisição: \(error)"
+                    }
+                }, receiveValue: { response in
+                    self.response = response
+                    self.configurePaymentSheet(with: response)
+                })
+                .store(in: &cancellables)
+        }
+        
+        private func configurePaymentSheet(with response: ServerResponse) {
+            // Aqui, você insere a configuração do seu PaymentSheet
+            // Este código é retirado da sua função original
+            
+            paymentIntentId = response.paymentId
+            STPAPIClient.shared.publishableKey = response.publishableKey
+            
+            //Configuracoes paymentSheet - cores
+            var appearance = PaymentSheet.Appearance()
+            var configuration = PaymentSheet.Configuration()
+            appearance.font.base = UIFont(name: "AvenirNext-Regular", size: UIFont.systemFontSize)!
+            appearance.cornerRadius = 12
+            appearance.shadow = .disabled
+            appearance.borderWidth = 0.5
+            appearance.colors.background = .white
+            appearance.colors.primary = UIColor (.rosa1)
+            appearance.colors.textSecondary = .black
+            appearance.colors.componentPlaceholderText = UIColor(red: 115/255, green: 117/255, blue: 123/255, alpha: 1)
+            appearance.colors.componentText = .black
+            appearance.colors.componentBorder = UIColor(red: 195/255, green: 213/255, blue: 200/255, alpha: 1)
+            appearance.colors.componentDivider = UIColor(red: 195/255, green: 213/255, blue: 200/255, alpha: 1)
+            appearance.colors.componentBackground = .clear
+            appearance.primaryButton.cornerRadius = 12
+            configuration.appearance = appearance
+            //Configuracoes paymentSheet
+            configuration.merchantDisplayName = "Party eventos"
+            configuration.style = .alwaysLight
+            configuration.defaultBillingDetails.address.country = "BR"
+            configuration.billingDetailsCollectionConfiguration.name = .always
+            configuration.billingDetailsCollectionConfiguration.email = .automatic
+            configuration.billingDetailsCollectionConfiguration.address = .full
+            configuration.billingDetailsCollectionConfiguration.attachDefaultsToPaymentMethod = true
+            configuration.applePay = .init(merchantId: "party eventos", merchantCountryCode: "BR")
+            configuration.customer = .init(id: response.customer, ephemeralKeySecret: response.ephemeralKey)
+            configuration.returnURL = "payments-example://stripe-redirect"
+            configuration.allowsDelayedPaymentMethods = false
+
+            PaymentSheet.FlowController.create(
+                paymentIntentClientSecret: response.paymentIntent,
+                configuration: configuration
+            ) { [weak self] result in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let paymentSheetFlowController):
+                    DispatchQueue.main.async {
+                        self?.paymentSheetFlowController = paymentSheetFlowController
                     }
                 }
-            })
-        task.resume()
-    }
+            }
+        }
+    
+
+    
+    
+//    func preparePaymentSheet(customerID: String, carrinho: Carrinho) {
+//        // MARK: Fetch the PaymentIntent and Customer information from the backend
+//        var request = URLRequest(url: backendCheckoutUrl)
+//        request.httpMethod = "POST"
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        do {
+//            let carrinhoData = try JSONEncoder().encode(carrinho)
+//            let paymentInfo: [String: Any] = ["customerID": customerID, "carrinho": String(data: carrinhoData, encoding: .utf8)!]
+//            let postData = try JSONSerialization.data(withJSONObject: paymentInfo, options: [])
+//            request.httpBody = postData
+//        } catch {
+//            print("Falha ao codificar o carrinho e/ou o custumerID: \(error)")
+//            return
+//        }
+//
+//        let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
+//            guard let data = data else {
+//                print("Erro ao receber dados: \(error?.localizedDescription ?? "Unknown error")")
+//                return
+//            }
+//
+//            let decoder = JSONDecoder()
+//            do {
+//                let response = try decoder.decode(PaymentResponse.self, from: data)
+//
+//                self.paymentIntentId = response.paymentId
+//                STPAPIClient.shared.publishableKey = response.publishableKey
+//
+//                // MARK: Create a PaymentSheet instance
+//
+//                //Configuracoes paymentSheet - cores
+//                var appearance = PaymentSheet.Appearance()
+//                var configuration = PaymentSheet.Configuration()
+//                appearance.font.base = UIFont(name: "AvenirNext-Regular", size: UIFont.systemFontSize)!
+//                appearance.cornerRadius = 12
+//                appearance.shadow = .disabled
+//                appearance.borderWidth = 0.5
+//                appearance.colors.background = .white
+//                appearance.colors.primary = UIColor (.rosa1)
+//                appearance.colors.textSecondary = .black
+//                appearance.colors.componentPlaceholderText = UIColor(red: 115/255, green: 117/255, blue: 123/255, alpha: 1)
+//                appearance.colors.componentText = .black
+//                appearance.colors.componentBorder = UIColor(red: 195/255, green: 213/255, blue: 200/255, alpha: 1)
+//                appearance.colors.componentDivider = UIColor(red: 195/255, green: 213/255, blue: 200/255, alpha: 1)
+//                appearance.colors.componentBackground = .clear
+//                appearance.primaryButton.cornerRadius = 12
+//                configuration.appearance = appearance
+//                //Configuracoes paymentSheet
+//                configuration.merchantDisplayName = "Party eventos"
+//                configuration.style = .alwaysLight
+//                configuration.defaultBillingDetails.address.country = "BR"
+//                configuration.billingDetailsCollectionConfiguration.name = .always
+//                configuration.billingDetailsCollectionConfiguration.email = .automatic
+//                configuration.billingDetailsCollectionConfiguration.address = .full
+//                configuration.billingDetailsCollectionConfiguration.attachDefaultsToPaymentMethod = true
+//                configuration.applePay = .init(merchantId: "party eventos", merchantCountryCode: "BR")
+//                configuration.customer = .init(id: response.customer, ephemeralKeySecret: response.ephemeralKey)
+//                configuration.returnURL = "payments-example://stripe-redirect"
+//                configuration.allowsDelayedPaymentMethods = false
+//
+//                PaymentSheet.FlowController.create(
+//                                paymentIntentClientSecret: response.paymentIntent,
+//                                configuration: configuration
+//                            ) { [weak self] result in
+//                                switch result {
+//                                case .failure(let error):
+//                                    print(error)
+//                                case .success(let paymentSheetFlowController):
+//                                    DispatchQueue.main.async {
+//                                        self?.paymentSheetFlowController = paymentSheetFlowController
+//                                    }
+//                                }
+//                            }
+//
+//                        } catch {
+//                            print("Erro na decodificação: \(error.localizedDescription)")
+//                        }
+//                    }
+//                    task.resume()
+//                }
 
 
     func onOptionsCompletion() {
@@ -127,7 +246,7 @@ class CarrinhoCompraViewModel: ObservableObject {
     
     func cancelPaymentIntent(completion: @escaping (Result<Void, Error>) -> Void) {
         // Defina a URL do servidor
-        guard let url = URL(string: "\(serverUrl)/v1/paymentIntent/cancel") else {
+        guard let url = URL(string: "\(serverUrl)/cancelPaymentIntent") else {
             completion(.failure(NSError(domain: "Invalid URL", code: -1, userInfo: nil)))
             return
         }
@@ -189,7 +308,7 @@ class CarrinhoCompraViewModel: ObservableObject {
         task.resume()
     }
     
-    func updatePaymentIntentMetadata(with documentId: String) {
+    func updatePaymentIntentMetadata(documentId: String, eventoId: String) {
         // URL da rota de atualização do PaymentIntent no seu servidor
         let updatePaymentIntentUrl = URL(string: "\(serverUrl)/update-payment-intent")!
 
@@ -198,7 +317,8 @@ class CarrinhoCompraViewModel: ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         // Coloque o ID do documento no campo de metadata
-        let metadata = ["documentId": documentId]
+        let metadata = ["documentId": documentId,
+                        "eventoId": eventoId]
 
         do {
             let postData: [String: Any] = [
@@ -239,29 +359,40 @@ class CarrinhoCompraViewModel: ObservableObject {
     
 
 
-    func getPaymentIntent() {
-        guard let url = URL(string: "\(serverUrl)/retrieve-payment-intent") else { return }
-        let body: [String: Any] = ["paymentIntentId": paymentIntentId]
-        let finalBody = try? JSONSerialization.data(withJSONObject: body)
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = finalBody
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            do {
+    func getPaymentIntent(paymentId: String) {
+        guard let url = URL(string: "\(serverUrl)/retrieve-payment-intent") else {
+            print("Error creating URL")
+            return
+        }
+        
+        let body: [String: Any] = ["paymentIntentId": paymentId]
+        do {
+            let finalBody = try JSONSerialization.data(withJSONObject: body)
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.httpBody = finalBody
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let data = data {
-                    let decodedResponse = try JSONDecoder().decode(PaymentIntent.self, from: data)
-                    DispatchQueue.main.async {
-                        self.paymentIntent = decodedResponse
+                    do {
+                        let decodedResponse = try JSONDecoder().decode(PaymentIntent.self, from: data)
+                        DispatchQueue.main.async {
+                            self.paymentIntent = decodedResponse
+                        }
+                    } catch {
+                        print("Error decoding JSON: \(error.localizedDescription)")
                     }
                 } else {
                     print("No data in response: \(error?.localizedDescription ?? "Unknown error")")
                 }
-            } catch {
-                print("Error decoding JSON: \(error.localizedDescription)")
-            }
-        }.resume()
+            }.resume()
+            
+        } catch {
+            print("Error encoding body: \(error.localizedDescription)")
+        }
     }
+
 
 
 

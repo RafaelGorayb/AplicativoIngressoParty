@@ -7,38 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80006BA82A9FCCD800C25EE3 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BA72A9FCCD800C25EE3 /* Stripe */; };
+		80006BAA2A9FCCD800C25EE3 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BA92A9FCCD800C25EE3 /* StripeApplePay */; };
+		80006BAC2A9FCCD800C25EE3 /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BAB2A9FCCD800C25EE3 /* StripeCardScan */; };
+		80006BAE2A9FCCD800C25EE3 /* StripeFinancialConnections in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BAD2A9FCCD800C25EE3 /* StripeFinancialConnections */; };
+		80006BB02A9FCCD800C25EE3 /* StripeIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BAF2A9FCCD800C25EE3 /* StripeIdentity */; };
+		80006BB22A9FCCD800C25EE3 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BB12A9FCCD800C25EE3 /* StripePaymentSheet */; };
+		80006BB42A9FCCD800C25EE3 /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BB32A9FCCD800C25EE3 /* StripePayments */; };
+		80006BB62A9FCCD800C25EE3 /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BB52A9FCCD800C25EE3 /* StripePaymentsUI */; };
+		80006BB92A9FCD9C00C25EE3 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BB82A9FCD9C00C25EE3 /* GoogleSignIn */; };
+		80006BBB2A9FCD9C00C25EE3 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BBA2A9FCD9C00C25EE3 /* GoogleSignInSwift */; };
+		80006BBD2A9FCE3000C25EE3 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BBC2A9FCE3000C25EE3 /* FirebaseAuth */; };
+		80006BBF2A9FCE3000C25EE3 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BBE2A9FCE3000C25EE3 /* FirebaseAuthCombine-Community */; };
+		80006BC12A9FCE3000C25EE3 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BC02A9FCE3000C25EE3 /* FirebaseDatabase */; };
+		80006BC32A9FCE3000C25EE3 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BC22A9FCE3000C25EE3 /* FirebaseDatabaseSwift */; };
+		80006BC52A9FCE3000C25EE3 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BC42A9FCE3000C25EE3 /* FirebaseFirestore */; };
+		80006BC72A9FCE3000C25EE3 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BC62A9FCE3000C25EE3 /* FirebaseFirestoreCombine-Community */; };
+		80006BC92A9FCE3000C25EE3 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BC82A9FCE3000C25EE3 /* FirebaseFirestoreSwift */; };
+		80006BCB2A9FCE3000C25EE3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BCA2A9FCE3000C25EE3 /* FirebaseStorage */; };
+		80006BCD2A9FCE3000C25EE3 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BCC2A9FCE3000C25EE3 /* FirebaseStorageCombine-Community */; };
+		80006BCF2A9FCE5100C25EE3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BCE2A9FCE5100C25EE3 /* SDWebImageSwiftUI */; };
+		80006BD12A9FCE6B00C25EE3 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 80006BD02A9FCE6B00C25EE3 /* SwiftUIPager */; };
 		800144792A589322001D854A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800144782A589322001D854A /* Extensions.swift */; };
 		800144802A5A6125001D854A /* Carrinho.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001447F2A5A6125001D854A /* Carrinho.swift */; };
 		800144822A5B0EB0001D854A /* liveCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800144812A5B0EB0001D854A /* liveCircle.swift */; };
 		800144862A5C6C36001D854A /* customButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800144852A5C6C36001D854A /* customButton.swift */; };
-		800144892A5C796E001D854A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 800144882A5C796E001D854A /* GoogleSignIn */; };
-		8001448B2A5C796E001D854A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8001448A2A5C796E001D854A /* GoogleSignInSwift */; };
-		8001448F2A5CA082001D854A /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8001448E2A5CA082001D854A /* SDWebImageSwiftUI */; };
 		800144922A5CD78B001D854A /* SelecaoIngressosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800144912A5CD78B001D854A /* SelecaoIngressosView.swift */; };
 		800144982A61BF9F001D854A /* CarrinhoCompraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800144972A61BF9F001D854A /* CarrinhoCompraViewModel.swift */; };
-		8001449B2A65B3CC001D854A /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 8001449A2A65B3CC001D854A /* Stripe */; };
-		8001449D2A65B3CC001D854A /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 8001449C2A65B3CC001D854A /* StripeApplePay */; };
-		8001449F2A65B3CC001D854A /* StripeCardScan in Frameworks */ = {isa = PBXBuildFile; productRef = 8001449E2A65B3CC001D854A /* StripeCardScan */; };
-		800144A12A65B3CC001D854A /* StripeFinancialConnections in Frameworks */ = {isa = PBXBuildFile; productRef = 800144A02A65B3CC001D854A /* StripeFinancialConnections */; };
-		800144A32A65B3CC001D854A /* StripeIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = 800144A22A65B3CC001D854A /* StripeIdentity */; };
-		800144A52A65B3CC001D854A /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 800144A42A65B3CC001D854A /* StripePaymentSheet */; };
-		800144A72A65B3CC001D854A /* StripePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 800144A62A65B3CC001D854A /* StripePayments */; };
-		800144A92A65B3CC001D854A /* StripePaymentsUI in Frameworks */ = {isa = PBXBuildFile; productRef = 800144A82A65B3CC001D854A /* StripePaymentsUI */; };
 		800144AC2A65CA59001D854A /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800144AB2A65CA59001D854A /* CheckoutView.swift */; };
 		800144B02A65CBA2001D854A /* ColorBorderStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800144AF2A65CBA2001D854A /* ColorBorderStyle.swift */; };
+		800B6D372A8F90CE00452011 /* DadosEventoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800B6D362A8F90CE00452011 /* DadosEventoView.swift */; };
 		803F041B2A5375E500CFBA81 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F041A2A5375E500CFBA81 /* User.swift */; };
 		803F041D2A5375EF00CFBA81 /* Evento.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F041C2A5375EF00CFBA81 /* Evento.swift */; };
-		803F04222A5376C100CFBA81 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 803F04212A5376C100CFBA81 /* FirebaseAuth */; };
-		803F04242A5376C100CFBA81 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 803F04232A5376C100CFBA81 /* FirebaseAuthCombine-Community */; };
-		803F04262A5376C100CFBA81 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 803F04252A5376C100CFBA81 /* FirebaseFirestore */; };
-		803F04282A5376C100CFBA81 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 803F04272A5376C100CFBA81 /* FirebaseFirestoreCombine-Community */; };
-		803F042A2A5376C100CFBA81 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 803F04292A5376C100CFBA81 /* FirebaseFirestoreSwift */; };
-		803F042C2A5376C100CFBA81 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 803F042B2A5376C100CFBA81 /* FirebaseStorage */; };
-		803F042E2A5376C100CFBA81 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 803F042D2A5376C100CFBA81 /* FirebaseStorageCombine-Community */; };
 		803F04312A537AED00CFBA81 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F04302A537AED00CFBA81 /* UserViewModel.swift */; };
 		803F04352A537C2C00CFBA81 /* ListaEventos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F04342A537C2C00CFBA81 /* ListaEventos.swift */; };
 		803F04372A537C5C00CFBA81 /* ListaIngressosComprados.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F04362A537C5C00CFBA81 /* ListaIngressosComprados.swift */; };
-		803F04392A537C8700CFBA81 /* ListaEventosAdm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F04382A537C8700CFBA81 /* ListaEventosAdm.swift */; };
 		803F043D2A537EDA00CFBA81 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 803F043C2A537EDA00CFBA81 /* GoogleService-Info.plist */; };
 		803F04402A537F1600CFBA81 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F043F2A537F1600CFBA81 /* AuthenticationView.swift */; };
 		803F04422A537F7500CFBA81 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F04412A537F7500CFBA81 /* CustomTextField.swift */; };
@@ -46,6 +49,9 @@
 		803F04492A5389AE00CFBA81 /* EventoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F04482A5389AE00CFBA81 /* EventoViewModel.swift */; };
 		803F044B2A53ADAB00CFBA81 /* EventoHomeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F044A2A53ADAB00CFBA81 /* EventoHomeItem.swift */; };
 		803F044D2A53B04A00CFBA81 /* AdicionarEventoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803F044C2A53B04A00CFBA81 /* AdicionarEventoView.swift */; };
+		8067E32E2A9102A200152949 /* DadosEventoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8067E32D2A9102A200152949 /* DadosEventoViewModel.swift */; };
+		8067E3312A939EC200152949 /* BuscarEventosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8067E3302A939EC200152949 /* BuscarEventosView.swift */; };
+		8067E3332A992DCF00152949 /* OpcoesDadosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8067E3322A992DCF00152949 /* OpcoesDadosView.swift */; };
 		8083AD432A57A47B005C8BB0 /* DetailEventoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8083AD422A57A47B005C8BB0 /* DetailEventoView.swift */; };
 		809E530F29C3544A00DA0D4C /* AplicativoIngressoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E530E29C3544A00DA0D4C /* AplicativoIngressoApp.swift */; };
 		809E531129C3544A00DA0D4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E531029C3544A00DA0D4C /* ContentView.swift */; };
@@ -58,9 +64,17 @@
 		80A435932A7801E90076ACD2 /* PaymentIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435922A7801E90076ACD2 /* PaymentIntent.swift */; };
 		80A435952A7831830076ACD2 /* EventoOwnerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435942A7831830076ACD2 /* EventoOwnerItem.swift */; };
 		80A435972A7872470076ACD2 /* TicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435962A7872470076ACD2 /* TicketView.swift */; };
-		80A4359A2A78B2550076ACD2 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 80A435992A78B2550076ACD2 /* SwiftUIPager */; };
 		80A4359C2A78D31F0076ACD2 /* pagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4359B2A78D31F0076ACD2 /* pagerView.swift */; };
 		80A4359E2A7AA1770076ACD2 /* TransferenciaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4359D2A7AA1770076ACD2 /* TransferenciaViewModel.swift */; };
+		80A435A02A812A1C0076ACD2 /* ChargesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A4359F2A812A1C0076ACD2 /* ChargesViewModel.swift */; };
+		80A435A22A812A760076ACD2 /* ChargesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435A12A812A760076ACD2 /* ChargesListView.swift */; };
+		80A435A42A83F7690076ACD2 /* MeusEventosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435A32A83F7690076ACD2 /* MeusEventosView.swift */; };
+		80A435A62A8514D70076ACD2 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435A52A8514D70076ACD2 /* QRCodeScannerView.swift */; };
+		80A435AB2A8550040076ACD2 /* TicketInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435AA2A8550040076ACD2 /* TicketInfo.swift */; };
+		80A435AD2A8550440076ACD2 /* QrcodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435AC2A8550440076ACD2 /* QrcodeScannerViewModel.swift */; };
+		80A435AF2A8859D20076ACD2 /* ValidationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435AE2A8859D20076ACD2 /* ValidationCard.swift */; };
+		80A435B12A891B8C0076ACD2 /* invitePromoterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435B02A891B8C0076ACD2 /* invitePromoterView.swift */; };
+		80A435B32A892D710076ACD2 /* InsertEventCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A435B22A892D710076ACD2 /* InsertEventCodeView.swift */; };
 		80C4413D2A68BEBA00DD7A48 /* CompraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C4413C2A68BEBA00DD7A48 /* CompraViewModel.swift */; };
 		80C441412A69A5D400DD7A48 /* ConfirmarIngressosViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C441402A69A5D400DD7A48 /* ConfirmarIngressosViews.swift */; };
 		80C441452A6C6CE100DD7A48 /* CardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C441442A6C6CE100DD7A48 /* CardListViewModel.swift */; };
@@ -68,7 +82,6 @@
 		80C4414A2A6C6E1E00DD7A48 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C441492A6C6E1E00DD7A48 /* AppConstants.swift */; };
 		80C441522A6DEF4800DD7A48 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C441512A6DEF4800DD7A48 /* NavigationModel.swift */; };
 		80C441542A6E0B9000DD7A48 /* CheckoutResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C441532A6E0B9000DD7A48 /* CheckoutResultView.swift */; };
-		80C441572A72D2B600DD7A48 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 80C441562A72D2B600DD7A48 /* FirebaseFunctions */; };
 		80C441592A770FB700DD7A48 /* ingressoListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C441582A770FB700DD7A48 /* ingressoListItem.swift */; };
 		80C4415B2A77110100DD7A48 /* Compra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C4415A2A77110100DD7A48 /* Compra.swift */; };
 		80D94EDB2A55F02D007FF0DC /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D94EDA2A55F02D007FF0DC /* ImagePicker.swift */; };
@@ -105,12 +118,12 @@
 		800144972A61BF9F001D854A /* CarrinhoCompraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrinhoCompraViewModel.swift; sourceTree = "<group>"; };
 		800144AB2A65CA59001D854A /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
 		800144AF2A65CBA2001D854A /* ColorBorderStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBorderStyle.swift; sourceTree = "<group>"; };
+		800B6D362A8F90CE00452011 /* DadosEventoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DadosEventoView.swift; sourceTree = "<group>"; };
 		803F041A2A5375E500CFBA81 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		803F041C2A5375EF00CFBA81 /* Evento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evento.swift; sourceTree = "<group>"; };
 		803F04302A537AED00CFBA81 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		803F04342A537C2C00CFBA81 /* ListaEventos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListaEventos.swift; sourceTree = "<group>"; };
 		803F04362A537C5C00CFBA81 /* ListaIngressosComprados.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListaIngressosComprados.swift; sourceTree = "<group>"; };
-		803F04382A537C8700CFBA81 /* ListaEventosAdm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListaEventosAdm.swift; sourceTree = "<group>"; };
 		803F043C2A537EDA00CFBA81 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		803F043F2A537F1600CFBA81 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		803F04412A537F7500CFBA81 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -118,6 +131,9 @@
 		803F04482A5389AE00CFBA81 /* EventoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventoViewModel.swift; sourceTree = "<group>"; };
 		803F044A2A53ADAB00CFBA81 /* EventoHomeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventoHomeItem.swift; sourceTree = "<group>"; };
 		803F044C2A53B04A00CFBA81 /* AdicionarEventoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEventoView.swift; sourceTree = "<group>"; };
+		8067E32D2A9102A200152949 /* DadosEventoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DadosEventoViewModel.swift; sourceTree = "<group>"; };
+		8067E3302A939EC200152949 /* BuscarEventosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuscarEventosView.swift; sourceTree = "<group>"; };
+		8067E3322A992DCF00152949 /* OpcoesDadosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpcoesDadosView.swift; sourceTree = "<group>"; };
 		8083AD422A57A47B005C8BB0 /* DetailEventoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEventoView.swift; sourceTree = "<group>"; };
 		809E530B29C3544A00DA0D4C /* AplicativoIngresso.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AplicativoIngresso.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		809E530E29C3544A00DA0D4C /* AplicativoIngressoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AplicativoIngressoApp.swift; sourceTree = "<group>"; };
@@ -135,6 +151,15 @@
 		80A435962A7872470076ACD2 /* TicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketView.swift; sourceTree = "<group>"; };
 		80A4359B2A78D31F0076ACD2 /* pagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pagerView.swift; sourceTree = "<group>"; };
 		80A4359D2A7AA1770076ACD2 /* TransferenciaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferenciaViewModel.swift; sourceTree = "<group>"; };
+		80A4359F2A812A1C0076ACD2 /* ChargesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesViewModel.swift; sourceTree = "<group>"; };
+		80A435A12A812A760076ACD2 /* ChargesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargesListView.swift; sourceTree = "<group>"; };
+		80A435A32A83F7690076ACD2 /* MeusEventosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeusEventosView.swift; sourceTree = "<group>"; };
+		80A435A52A8514D70076ACD2 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
+		80A435AA2A8550040076ACD2 /* TicketInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketInfo.swift; sourceTree = "<group>"; };
+		80A435AC2A8550440076ACD2 /* QrcodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrcodeScannerViewModel.swift; sourceTree = "<group>"; };
+		80A435AE2A8859D20076ACD2 /* ValidationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationCard.swift; sourceTree = "<group>"; };
+		80A435B02A891B8C0076ACD2 /* invitePromoterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = invitePromoterView.swift; sourceTree = "<group>"; };
+		80A435B22A892D710076ACD2 /* InsertEventCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertEventCodeView.swift; sourceTree = "<group>"; };
 		80C4413C2A68BEBA00DD7A48 /* CompraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompraViewModel.swift; sourceTree = "<group>"; };
 		80C441402A69A5D400DD7A48 /* ConfirmarIngressosViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmarIngressosViews.swift; sourceTree = "<group>"; };
 		80C441442A6C6CE100DD7A48 /* CardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewModel.swift; sourceTree = "<group>"; };
@@ -156,26 +181,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				800144A52A65B3CC001D854A /* StripePaymentSheet in Frameworks */,
-				8001448F2A5CA082001D854A /* SDWebImageSwiftUI in Frameworks */,
-				80A4359A2A78B2550076ACD2 /* SwiftUIPager in Frameworks */,
-				800144A72A65B3CC001D854A /* StripePayments in Frameworks */,
-				8001448B2A5C796E001D854A /* GoogleSignInSwift in Frameworks */,
-				803F042A2A5376C100CFBA81 /* FirebaseFirestoreSwift in Frameworks */,
-				800144A12A65B3CC001D854A /* StripeFinancialConnections in Frameworks */,
-				800144A92A65B3CC001D854A /* StripePaymentsUI in Frameworks */,
-				800144892A5C796E001D854A /* GoogleSignIn in Frameworks */,
-				803F042E2A5376C100CFBA81 /* FirebaseStorageCombine-Community in Frameworks */,
-				803F04222A5376C100CFBA81 /* FirebaseAuth in Frameworks */,
-				80C441572A72D2B600DD7A48 /* FirebaseFunctions in Frameworks */,
-				803F04282A5376C100CFBA81 /* FirebaseFirestoreCombine-Community in Frameworks */,
-				8001449F2A65B3CC001D854A /* StripeCardScan in Frameworks */,
-				8001449B2A65B3CC001D854A /* Stripe in Frameworks */,
-				803F04242A5376C100CFBA81 /* FirebaseAuthCombine-Community in Frameworks */,
-				8001449D2A65B3CC001D854A /* StripeApplePay in Frameworks */,
-				800144A32A65B3CC001D854A /* StripeIdentity in Frameworks */,
-				803F04262A5376C100CFBA81 /* FirebaseFirestore in Frameworks */,
-				803F042C2A5376C100CFBA81 /* FirebaseStorage in Frameworks */,
+				80006BCF2A9FCE5100C25EE3 /* SDWebImageSwiftUI in Frameworks */,
+				80006BC32A9FCE3000C25EE3 /* FirebaseDatabaseSwift in Frameworks */,
+				80006BC92A9FCE3000C25EE3 /* FirebaseFirestoreSwift in Frameworks */,
+				80006BC12A9FCE3000C25EE3 /* FirebaseDatabase in Frameworks */,
+				80006BAC2A9FCCD800C25EE3 /* StripeCardScan in Frameworks */,
+				80006BAE2A9FCCD800C25EE3 /* StripeFinancialConnections in Frameworks */,
+				80006BB02A9FCCD800C25EE3 /* StripeIdentity in Frameworks */,
+				80006BCD2A9FCE3000C25EE3 /* FirebaseStorageCombine-Community in Frameworks */,
+				80006BA82A9FCCD800C25EE3 /* Stripe in Frameworks */,
+				80006BB22A9FCCD800C25EE3 /* StripePaymentSheet in Frameworks */,
+				80006BBB2A9FCD9C00C25EE3 /* GoogleSignInSwift in Frameworks */,
+				80006BC52A9FCE3000C25EE3 /* FirebaseFirestore in Frameworks */,
+				80006BC72A9FCE3000C25EE3 /* FirebaseFirestoreCombine-Community in Frameworks */,
+				80006BCB2A9FCE3000C25EE3 /* FirebaseStorage in Frameworks */,
+				80006BB42A9FCCD800C25EE3 /* StripePayments in Frameworks */,
+				80006BBF2A9FCE3000C25EE3 /* FirebaseAuthCombine-Community in Frameworks */,
+				80006BBD2A9FCE3000C25EE3 /* FirebaseAuth in Frameworks */,
+				80006BD12A9FCE6B00C25EE3 /* SwiftUIPager in Frameworks */,
+				80006BB62A9FCCD800C25EE3 /* StripePaymentsUI in Frameworks */,
+				80006BAA2A9FCCD800C25EE3 /* StripeApplePay in Frameworks */,
+				80006BB92A9FCD9C00C25EE3 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,10 +226,22 @@
 			isa = PBXGroup;
 			children = (
 				800144AB2A65CA59001D854A /* CheckoutView.swift */,
-				80C441462A6C6DA200DD7A48 /* PaymentMethodsView.swift */,
 				80C441532A6E0B9000DD7A48 /* CheckoutResultView.swift */,
 			);
 			path = ProcessamentoPagamento;
+			sourceTree = "<group>";
+		};
+		800B6D352A8F90A900452011 /* eventoOpcoes */ = {
+			isa = PBXGroup;
+			children = (
+				80A435B22A892D710076ACD2 /* InsertEventCodeView.swift */,
+				80A435B02A891B8C0076ACD2 /* invitePromoterView.swift */,
+				80A435AE2A8859D20076ACD2 /* ValidationCard.swift */,
+				80A435A52A8514D70076ACD2 /* QRCodeScannerView.swift */,
+				800B6D362A8F90CE00452011 /* DadosEventoView.swift */,
+				8067E3322A992DCF00152949 /* OpcoesDadosView.swift */,
+			);
+			path = eventoOpcoes;
 			sourceTree = "<group>";
 		};
 		803F042F2A537AD900CFBA81 /* ViewModel */ = {
@@ -216,6 +254,9 @@
 				80C441442A6C6CE100DD7A48 /* CardListViewModel.swift */,
 				80C441512A6DEF4800DD7A48 /* NavigationModel.swift */,
 				80A4359D2A7AA1770076ACD2 /* TransferenciaViewModel.swift */,
+				80A4359F2A812A1C0076ACD2 /* ChargesViewModel.swift */,
+				80A435AC2A8550440076ACD2 /* QrcodeScannerViewModel.swift */,
+				8067E32D2A9102A200152949 /* DadosEventoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -235,7 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				803F04342A537C2C00CFBA81 /* ListaEventos.swift */,
-				803F04382A537C8700CFBA81 /* ListaEventosAdm.swift */,
 				803F04362A537C5C00CFBA81 /* ListaIngressosComprados.swift */,
 				803F044C2A53B04A00CFBA81 /* AdicionarEventoView.swift */,
 				80D94EE32A573AD9007FF0DC /* EditarEventoView.swift */,
@@ -260,8 +300,27 @@
 			isa = PBXGroup;
 			children = (
 				803F04442A5388C500CFBA81 /* PerfilView.swift */,
+				80C441462A6C6DA200DD7A48 /* PaymentMethodsView.swift */,
+				80A435A12A812A760076ACD2 /* ChargesListView.swift */,
+				80A435A32A83F7690076ACD2 /* MeusEventosView.swift */,
+				800B6D352A8F90A900452011 /* eventoOpcoes */,
 			);
 			path = Perfil;
+			sourceTree = "<group>";
+		};
+		8067E32F2A939E9900152949 /* Buscar */ = {
+			isa = PBXGroup;
+			children = (
+				8067E3302A939EC200152949 /* BuscarEventosView.swift */,
+			);
+			path = Buscar;
+			sourceTree = "<group>";
+		};
+		8067E3342A9FBCE200152949 /* teste */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = teste;
 			sourceTree = "<group>";
 		};
 		809E530229C3544A00DA0D4C = {
@@ -289,6 +348,7 @@
 		809E530D29C3544A00DA0D4C /* AplicativoIngresso */ = {
 			isa = PBXGroup;
 			children = (
+				8067E3342A9FBCE200152949 /* teste */,
 				8001448C2A5C79A7001D854A /* Info.plist */,
 				809E530E29C3544A00DA0D4C /* AplicativoIngressoApp.swift */,
 				809E531029C3544A00DA0D4C /* ContentView.swift */,
@@ -330,6 +390,7 @@
 		809E533A29C3545D00DA0D4C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8067E32F2A939E9900152949 /* Buscar */,
 				800144AA2A65CA44001D854A /* ProcessamentoPagamento */,
 				80D94EDC2A5684DA007FF0DC /* components */,
 				803F043E2A537F0800CFBA81 /* Autenticar */,
@@ -348,6 +409,7 @@
 				8001447F2A5A6125001D854A /* Carrinho.swift */,
 				803F041C2A5375EF00CFBA81 /* Evento.swift */,
 				803F041A2A5375E500CFBA81 /* User.swift */,
+				80A435AA2A8550040076ACD2 /* TicketInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -400,26 +462,27 @@
 			);
 			name = AplicativoIngresso;
 			packageProductDependencies = (
-				803F04212A5376C100CFBA81 /* FirebaseAuth */,
-				803F04232A5376C100CFBA81 /* FirebaseAuthCombine-Community */,
-				803F04252A5376C100CFBA81 /* FirebaseFirestore */,
-				803F04272A5376C100CFBA81 /* FirebaseFirestoreCombine-Community */,
-				803F04292A5376C100CFBA81 /* FirebaseFirestoreSwift */,
-				803F042B2A5376C100CFBA81 /* FirebaseStorage */,
-				803F042D2A5376C100CFBA81 /* FirebaseStorageCombine-Community */,
-				800144882A5C796E001D854A /* GoogleSignIn */,
-				8001448A2A5C796E001D854A /* GoogleSignInSwift */,
-				8001448E2A5CA082001D854A /* SDWebImageSwiftUI */,
-				8001449A2A65B3CC001D854A /* Stripe */,
-				8001449C2A65B3CC001D854A /* StripeApplePay */,
-				8001449E2A65B3CC001D854A /* StripeCardScan */,
-				800144A02A65B3CC001D854A /* StripeFinancialConnections */,
-				800144A22A65B3CC001D854A /* StripeIdentity */,
-				800144A42A65B3CC001D854A /* StripePaymentSheet */,
-				800144A62A65B3CC001D854A /* StripePayments */,
-				800144A82A65B3CC001D854A /* StripePaymentsUI */,
-				80C441562A72D2B600DD7A48 /* FirebaseFunctions */,
-				80A435992A78B2550076ACD2 /* SwiftUIPager */,
+				80006BA72A9FCCD800C25EE3 /* Stripe */,
+				80006BA92A9FCCD800C25EE3 /* StripeApplePay */,
+				80006BAB2A9FCCD800C25EE3 /* StripeCardScan */,
+				80006BAD2A9FCCD800C25EE3 /* StripeFinancialConnections */,
+				80006BAF2A9FCCD800C25EE3 /* StripeIdentity */,
+				80006BB12A9FCCD800C25EE3 /* StripePaymentSheet */,
+				80006BB32A9FCCD800C25EE3 /* StripePayments */,
+				80006BB52A9FCCD800C25EE3 /* StripePaymentsUI */,
+				80006BB82A9FCD9C00C25EE3 /* GoogleSignIn */,
+				80006BBA2A9FCD9C00C25EE3 /* GoogleSignInSwift */,
+				80006BBC2A9FCE3000C25EE3 /* FirebaseAuth */,
+				80006BBE2A9FCE3000C25EE3 /* FirebaseAuthCombine-Community */,
+				80006BC02A9FCE3000C25EE3 /* FirebaseDatabase */,
+				80006BC22A9FCE3000C25EE3 /* FirebaseDatabaseSwift */,
+				80006BC42A9FCE3000C25EE3 /* FirebaseFirestore */,
+				80006BC62A9FCE3000C25EE3 /* FirebaseFirestoreCombine-Community */,
+				80006BC82A9FCE3000C25EE3 /* FirebaseFirestoreSwift */,
+				80006BCA2A9FCE3000C25EE3 /* FirebaseStorage */,
+				80006BCC2A9FCE3000C25EE3 /* FirebaseStorageCombine-Community */,
+				80006BCE2A9FCE5100C25EE3 /* SDWebImageSwiftUI */,
+				80006BD02A9FCE6B00C25EE3 /* SwiftUIPager */,
 			);
 			productName = AplicativoIngresso;
 			productReference = 809E530B29C3544A00DA0D4C /* AplicativoIngresso.app */;
@@ -496,10 +559,11 @@
 			packageReferences = (
 				803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				8001447A2A5898A7001D854A /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
-				800144872A5C796E001D854A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				8001448D2A5CA082001D854A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				800144992A65B3CC001D854A /* XCRemoteSwiftPackageReference "stripe-ios-spm" */,
 				80A435982A78B2550076ACD2 /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
+				80A435A72A85157E0076ACD2 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				80006BA62A9FCCD800C25EE3 /* XCRemoteSwiftPackageReference "stripe-ios" */,
+				80006BB72A9FCD9C00C25EE3 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 809E530C29C3544A00DA0D4C /* Products */;
 			projectDirPath = "";
@@ -549,7 +613,12 @@
 				80D94EE42A573AD9007FF0DC /* EditarEventoView.swift in Sources */,
 				80D94EE02A572BAA007FF0DC /* CustomSearchBar.swift in Sources */,
 				80A435932A7801E90076ACD2 /* PaymentIntent.swift in Sources */,
+				80A435A62A8514D70076ACD2 /* QRCodeScannerView.swift in Sources */,
+				80A435A22A812A760076ACD2 /* ChargesListView.swift in Sources */,
+				8067E3332A992DCF00152949 /* OpcoesDadosView.swift in Sources */,
+				80A435B32A892D710076ACD2 /* InsertEventCodeView.swift in Sources */,
 				80C441472A6C6DA200DD7A48 /* PaymentMethodsView.swift in Sources */,
+				80A435AB2A8550040076ACD2 /* TicketInfo.swift in Sources */,
 				803F04372A537C5C00CFBA81 /* ListaIngressosComprados.swift in Sources */,
 				80C441522A6DEF4800DD7A48 /* NavigationModel.swift in Sources */,
 				80D94EDB2A55F02D007FF0DC /* ImagePicker.swift in Sources */,
@@ -564,21 +633,28 @@
 				809E533929C3545800DA0D4C /* HomeView.swift in Sources */,
 				809E531129C3544A00DA0D4C /* ContentView.swift in Sources */,
 				80D94EE22A573803007FF0DC /* AnimatedPlaceholder.swift in Sources */,
+				8067E32E2A9102A200152949 /* DadosEventoViewModel.swift in Sources */,
 				803F044B2A53ADAB00CFBA81 /* EventoHomeItem.swift in Sources */,
 				800144792A589322001D854A /* Extensions.swift in Sources */,
 				80C4414A2A6C6E1E00DD7A48 /* AppConstants.swift in Sources */,
 				809E530F29C3544A00DA0D4C /* AplicativoIngressoApp.swift in Sources */,
+				80A435AD2A8550440076ACD2 /* QrcodeScannerViewModel.swift in Sources */,
 				80A435972A7872470076ACD2 /* TicketView.swift in Sources */,
+				80A435B12A891B8C0076ACD2 /* invitePromoterView.swift in Sources */,
 				803F041D2A5375EF00CFBA81 /* Evento.swift in Sources */,
 				80C4415B2A77110100DD7A48 /* Compra.swift in Sources */,
 				803F04312A537AED00CFBA81 /* UserViewModel.swift in Sources */,
 				80C441452A6C6CE100DD7A48 /* CardListViewModel.swift in Sources */,
 				803F04422A537F7500CFBA81 /* CustomTextField.swift in Sources */,
-				803F04392A537C8700CFBA81 /* ListaEventosAdm.swift in Sources */,
+				80A435A02A812A1C0076ACD2 /* ChargesViewModel.swift in Sources */,
 				800144922A5CD78B001D854A /* SelecaoIngressosView.swift in Sources */,
+				80A435AF2A8859D20076ACD2 /* ValidationCard.swift in Sources */,
 				80A4359E2A7AA1770076ACD2 /* TransferenciaViewModel.swift in Sources */,
+				8067E3312A939EC200152949 /* BuscarEventosView.swift in Sources */,
 				800144822A5B0EB0001D854A /* liveCircle.swift in Sources */,
 				80A435952A7831830076ACD2 /* EventoOwnerItem.swift in Sources */,
+				80A435A42A83F7690076ACD2 /* MeusEventosView.swift in Sources */,
+				800B6D372A8F90CE00452011 /* DadosEventoView.swift in Sources */,
 				80A4359C2A78D31F0076ACD2 /* pagerView.swift in Sources */,
 				80D94EDE2A57245B007FF0DC /* bototesGenerosFesta.swift in Sources */,
 				800144982A61BF9F001D854A /* CarrinhoCompraViewModel.swift in Sources */,
@@ -749,11 +825,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AplicativoIngresso/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Precisamos de acesso à sua câmera para escanear códigos QR.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Para preenchimento de senhas";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -761,6 +839,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = rafaelgorayb.AplicativoIngresso;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -779,11 +860,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AplicativoIngresso/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Precisamos de acesso à sua câmera para escanear códigos QR.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Para preenchimento de senhas";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -791,6 +874,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = rafaelgorayb.AplicativoIngresso;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -915,6 +1001,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		80006BA62A9FCCD800C25EE3 /* XCRemoteSwiftPackageReference "stripe-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stripe/stripe-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 23.0.0;
+			};
+		};
+		80006BB72A9FCD9C00C25EE3 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		8001447A2A5898A7001D854A /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
@@ -923,28 +1025,12 @@
 				minimumVersion = 0.9.0;
 			};
 		};
-		800144872A5C796E001D854A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
 		8001448D2A5CA082001D854A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.0;
-			};
-		};
-		800144992A65B3CC001D854A /* XCRemoteSwiftPackageReference "stripe-ios-spm" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stripe/stripe-ios-spm";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 23.0.0;
 			};
 		};
 		803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -963,108 +1049,121 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		80A435A72A85157E0076ACD2 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		800144882A5C796E001D854A /* GoogleSignIn */ = {
+		80006BA72A9FCCD800C25EE3 /* Stripe */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 800144872A5C796E001D854A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
-			productName = GoogleSignIn;
-		};
-		8001448A2A5C796E001D854A /* GoogleSignInSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 800144872A5C796E001D854A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
-			productName = GoogleSignInSwift;
-		};
-		8001448E2A5CA082001D854A /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8001448D2A5CA082001D854A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
-		};
-		8001449A2A65B3CC001D854A /* Stripe */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 800144992A65B3CC001D854A /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			package = 80006BA62A9FCCD800C25EE3 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = Stripe;
 		};
-		8001449C2A65B3CC001D854A /* StripeApplePay */ = {
+		80006BA92A9FCCD800C25EE3 /* StripeApplePay */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 800144992A65B3CC001D854A /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			package = 80006BA62A9FCCD800C25EE3 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = StripeApplePay;
 		};
-		8001449E2A65B3CC001D854A /* StripeCardScan */ = {
+		80006BAB2A9FCCD800C25EE3 /* StripeCardScan */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 800144992A65B3CC001D854A /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			package = 80006BA62A9FCCD800C25EE3 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = StripeCardScan;
 		};
-		800144A02A65B3CC001D854A /* StripeFinancialConnections */ = {
+		80006BAD2A9FCCD800C25EE3 /* StripeFinancialConnections */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 800144992A65B3CC001D854A /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			package = 80006BA62A9FCCD800C25EE3 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = StripeFinancialConnections;
 		};
-		800144A22A65B3CC001D854A /* StripeIdentity */ = {
+		80006BAF2A9FCCD800C25EE3 /* StripeIdentity */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 800144992A65B3CC001D854A /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			package = 80006BA62A9FCCD800C25EE3 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = StripeIdentity;
 		};
-		800144A42A65B3CC001D854A /* StripePaymentSheet */ = {
+		80006BB12A9FCCD800C25EE3 /* StripePaymentSheet */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 800144992A65B3CC001D854A /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			package = 80006BA62A9FCCD800C25EE3 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = StripePaymentSheet;
 		};
-		800144A62A65B3CC001D854A /* StripePayments */ = {
+		80006BB32A9FCCD800C25EE3 /* StripePayments */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 800144992A65B3CC001D854A /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			package = 80006BA62A9FCCD800C25EE3 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = StripePayments;
 		};
-		800144A82A65B3CC001D854A /* StripePaymentsUI */ = {
+		80006BB52A9FCCD800C25EE3 /* StripePaymentsUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 800144992A65B3CC001D854A /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			package = 80006BA62A9FCCD800C25EE3 /* XCRemoteSwiftPackageReference "stripe-ios" */;
 			productName = StripePaymentsUI;
 		};
-		803F04212A5376C100CFBA81 /* FirebaseAuth */ = {
+		80006BB82A9FCD9C00C25EE3 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80006BB72A9FCD9C00C25EE3 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		80006BBA2A9FCD9C00C25EE3 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80006BB72A9FCD9C00C25EE3 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		80006BBC2A9FCE3000C25EE3 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		803F04232A5376C100CFBA81 /* FirebaseAuthCombine-Community */ = {
+		80006BBE2A9FCE3000C25EE3 /* FirebaseAuthCombine-Community */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseAuthCombine-Community";
 		};
-		803F04252A5376C100CFBA81 /* FirebaseFirestore */ = {
+		80006BC02A9FCE3000C25EE3 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		80006BC22A9FCE3000C25EE3 /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
+		};
+		80006BC42A9FCE3000C25EE3 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		803F04272A5376C100CFBA81 /* FirebaseFirestoreCombine-Community */ = {
+		80006BC62A9FCE3000C25EE3 /* FirebaseFirestoreCombine-Community */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreCombine-Community";
 		};
-		803F04292A5376C100CFBA81 /* FirebaseFirestoreSwift */ = {
+		80006BC82A9FCE3000C25EE3 /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
 		};
-		803F042B2A5376C100CFBA81 /* FirebaseStorage */ = {
+		80006BCA2A9FCE3000C25EE3 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
-		803F042D2A5376C100CFBA81 /* FirebaseStorageCombine-Community */ = {
+		80006BCC2A9FCE3000C25EE3 /* FirebaseStorageCombine-Community */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
 		};
-		80A435992A78B2550076ACD2 /* SwiftUIPager */ = {
+		80006BCE2A9FCE5100C25EE3 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8001448D2A5CA082001D854A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		80006BD02A9FCE6B00C25EE3 /* SwiftUIPager */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80A435982A78B2550076ACD2 /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
 			productName = SwiftUIPager;
-		};
-		80C441562A72D2B600DD7A48 /* FirebaseFunctions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 803F04202A5376C100CFBA81 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFunctions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

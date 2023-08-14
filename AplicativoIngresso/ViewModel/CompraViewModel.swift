@@ -31,15 +31,17 @@ class CompraViewModel: ObservableObject{
                 print("no documents")
                 return
             }
-            
-            self.compras = documents.compactMap{(queryDocumentSnapshot) -> Compra? in
+
+            self.compras = documents.compactMap { (queryDocumentSnapshot) -> Compra? in
                 return try? queryDocumentSnapshot.data(as: Compra.self)
+            }.filter { compra in
+                return !compra.ingressos.isEmpty
             }
-            self.compras.sort(by: {$0.dataEvento < $1.dataEvento})
-                
-                                            
+            
+            self.compras.sort(by: { $0.dataEvento < $1.dataEvento })
         }
     }
+
     
 
     

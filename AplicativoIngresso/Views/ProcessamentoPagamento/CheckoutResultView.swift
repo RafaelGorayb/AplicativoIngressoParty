@@ -56,11 +56,11 @@ struct CheckoutResultView: View {
                     paymentStatus(status: paymentIntent.status)
                 }
             } else {
-                Text("Loading...")
+                Text("Aguarde. Estamos processando seu pagamento...")
             }
         }
         .onAppear() {
-            carrinhoVm.getPaymentIntent()
+            carrinhoVm.getPaymentIntent(paymentId: paymentIntentId)
         }
         .navigationDestination(isPresented: $showIngresso) {
             ticketView(compra: compraVm.compra)
@@ -81,6 +81,12 @@ struct CheckoutResultView: View {
             statusDescription = "O pagamento foi aprovado e seu ingresso ja esta disponível."
             color = .yellow
 
+        case "canceled":
+            iconName = "exclamationmark.circle.fill"
+            statusLabel = "Falha"
+            statusDescription = "Falha no pagamento tente novamente."
+            color = .yellow
+            
         default:
             iconName = "checkmark.circle.fill"
             statusLabel = "Processando"
@@ -131,7 +137,7 @@ struct FailCheckoutResult: View{
 struct CheckoutResultView_Previews: PreviewProvider {
     static var previews: some View {
         VStack{
-            CheckoutResultView(paymentIntentId: "pi_3NZjLpERPZEdqIxu1vak5lgx").environmentObject(CompraViewModel())
+            CheckoutResultView(paymentIntentId: "pi_3NdDH2ERPZEdqIxu0hhz4Rik").environmentObject(CompraViewModel()).environmentObject(CarrinhoCompraViewModel())
         }
     }
 }

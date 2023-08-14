@@ -34,7 +34,7 @@ class UserViewModel: ObservableObject {
     
     // MARK: Firebase Auth Functions
     func signIn(email: String, password: String) {
-        auth.signIn(withEmail: email, password: password) { [weak self] result, error in
+        auth.signIn(withEmail: email.lowercased(), password: password) { [weak self] result, error in
             if let error = error {
                 // Handle the error here
                 self?.errorString = error.localizedDescription
@@ -89,7 +89,7 @@ class UserViewModel: ObservableObject {
                         let nome = googleUser.profile?.name
                         let email = googleUser.profile?.email
                         let urlFotoPerfil = googleUser.profile?.imageURL(withDimension: 100)?.absoluteString ?? ""
-                        let newUser = User(nome: nome!, dataNascimento: Date(), email: email!, cpf: "", telefone: 0, urlFotoPerfil: urlFotoPerfil)
+                        let newUser = User(nome: nome!, dataNascimento: Date(), email: email!.lowercased(), cpf: "", telefone: 0, urlFotoPerfil: urlFotoPerfil)
                         DispatchQueue.main.async {
                             self?.add(newUser)
                             self?.sync()

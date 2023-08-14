@@ -23,7 +23,7 @@ struct DetailEventoView: View {
                                image.resizable()
                                 .frame(height: 200)
                                 .scaledToFit()
-                                .blur(radius: 20)                                
+                                .blur(radius: 20)
                                 .ignoresSafeArea()
                                  .onAppear {
                                      imageLoaded = true
@@ -33,6 +33,8 @@ struct DetailEventoView: View {
                             AnimatedPlaceholder()
                                
                         }
+                    
+                    
 
                         AsyncImage(url: URL(string: evento.urlFotoCapa)) { image in
                                image.resizable()
@@ -111,11 +113,7 @@ struct DetailEventoView: View {
             .sheet(isPresented: $comprarSheet, content: {
                 SelecaoIngressosView(evento: evento, showSelecaoIngressos: $comprarSheet).environmentObject(CarrinhoCompraViewModel()).environmentObject(CompraViewModel()).environmentObject(userVm)
             })
-            
-//            .sheet(isPresented: $isShowingTicket, content: {
-//                ticketView(ingresso: )
-//            })
-            
+                        
             .toolbar{
              Button(action: {
                  
@@ -161,6 +159,7 @@ struct DetailEventoView: View {
     }
 
 }
+
 
 struct DetailEventoView_Previews: PreviewProvider {
     static var previews: some View {

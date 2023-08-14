@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct bototesGenerosFesta: View {
+    @EnvironmentObject var eventoVm: EventoViewModel
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
                 ForEach(musicGenres, id: \.name) { genre in
                     VStack {
                         Button(action: {
+                            eventoVm.filtraEventos(genero: genre.name)
                             print("Button \(genre.name) pressed")
                         }) {
                             VStack {
@@ -55,6 +57,6 @@ let musicGenres = [
 
 struct bototesGenerosFesta_Previews: PreviewProvider {
     static var previews: some View {
-        bototesGenerosFesta()
+        bototesGenerosFesta().environmentObject(EventoViewModel())
     }
 }

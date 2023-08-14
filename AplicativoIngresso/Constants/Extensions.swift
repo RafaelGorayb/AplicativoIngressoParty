@@ -45,9 +45,27 @@ extension Date {
         return timeFormatter.string(from: self)
     }
     
+    func formattedAsString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy 'às' HH:mm"
+        return dateFormatter.string(from: self)
+    }
+    
+}
+extension AnyTransition {
+    static var moveAndFade: AnyTransition {
+        let insertion = AnyTransition.move(edge: .bottom).combined(with: .slide)
+        let removal = AnyTransition.move(edge: .top).combined(with: .slide)
+        return .asymmetric(insertion: insertion, removal: removal)
+    }
 }
 
+
 extension View {
+    func customConfirmDialog<A: View>(isPresented: Binding<Bool>, @ViewBuilder actions: @escaping () -> A) -> some View {
+        return self.modifier(MyCustomModifier(isPresented: isPresented, actions: actions))
+    }
+    
     func checkEventStatus(start: Date, end: Date) -> String {
         let calendar = Calendar.current
 
@@ -126,6 +144,51 @@ func formatCPF(_ value: String) -> String {
         return output
     }
 
+
+struct MyCustomModifier<A>: ViewModifier where A: View {
+    
+    @Binding var isPresented: Bool
+    @ViewBuilder let actions: () -> A
+    
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            ZStack(alignment: .bottom) {
+                if isPresented {
+                    Color.primary.opacity(0.2)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                                isPresented = false
+                        }
+                        .transition(.opacity)
+                }
+                
+                if isPresented {
+                    VStack {
+                        GroupBox {
+                            actions()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        
+                        GroupBox {
+                            Button("Cancel", role: .cancel) {
+                                    isPresented = false
+                            }
+                            .bold()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .font(.title3)
+                        }
+                    }
+                    .padding(8)
+                    .transition(.move(edge: .bottom))
+                }
+            }
+        }
+        .animation(.easeInOut, value: isPresented)
+   }
+}
 
 
 

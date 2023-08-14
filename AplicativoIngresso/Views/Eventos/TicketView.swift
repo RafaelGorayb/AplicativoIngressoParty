@@ -66,7 +66,7 @@ struct ticketView: View {
                                 }
                             })
     
-                            NavigationLink(destination: transferirIngressoView(compra: compra), label: {
+                            NavigationLink(destination: transferirIngressoView(compra: compra).environmentObject(TransferenciaViewModel()), label: {
                                 HStack{
                                     Text("Transferir")
                                     Spacer()
@@ -136,7 +136,10 @@ struct EditTicketView: View {
 
 struct transferirIngressoView: View {
     let compra: Compra
-    @State private var ingressosSelecionados: [Ingresso] = []
+    @EnvironmentObject var transferVm: TransferenciaViewModel
+    @State private var showAlert = false
+    @State private var isLinkActive = false
+    
 
     var body: some View {
         NavigationStack {
@@ -150,44 +153,152 @@ struct transferirIngressoView: View {
                                 Text(ingresso.ingressoId ?? "").font(.system(size: 10)).foregroundColor(.gray)
                             }
                             Spacer()
-                            if ingressosSelecionados.contains(where: { $0.ingressoId == ingresso.ingressoId }) {
+                            if transferVm.ingressosSelecionados.contains(where: { $0.ingressoId == ingresso.ingressoId }) {
                                 Image(systemName: "checkmark").foregroundColor(Color.rosa1)
                             }
                         }
                         .onTapGesture {
-                            if let index = ingressosSelecionados.firstIndex(where: { $0.ingressoId == ingresso.ingressoId }) {
-                                ingressosSelecionados.remove(at: index)
+                            if let index = transferVm.ingressosSelecionados.firstIndex(where: { $0.ingressoId == ingresso.ingressoId }) {
+                                transferVm.ingressosSelecionados.remove(at: index)
                             } else {
-                                ingressosSelecionados.append(ingresso)
+                                transferVm.ingressosSelecionados.append(ingresso)
                             }
                             
                         }
                     }
                 }
+            }.onAppear{
+                transferVm.compra = compra
+                transferVm.remetenteProprietarioIngressoId = compra.proprietarioIngressoId
             }
             .listStyle(.plain)
-            .toolbar {
-                NavigationLink("Prosseguir", destination: ProximaView(ingressos: ingressosSelecionados))
+                       .toolbar {
+                           Button("Prosseguir") {
+                               if transferVm.ingressosSelecionados.isEmpty {
+                                   showAlert = true
+                               } else {
+                                   isLinkActive = true
+                               }
+                           }
+                       }
+                       .background(NavigationLink("", destination: PesquisarUserView().environmentObject(transferVm), isActive: $isLinkActive))
+                       .navigationTitle("ingressos")
+                       .alert(isPresented: $showAlert) {
+                           Alert(title: Text("Atenção"), message: Text("Por favor, selecione pelo menos 1 ingresso."), dismissButton: .default(Text("OK")))
+                       }
+                   }
+               }
+           }
+
+struct PesquisarUserView: View {
+    @EnvironmentObject var transferVm: TransferenciaViewModel
+    @State var email = ""
+    @State var userFound: Bool? = nil
+    @State var navigate = false
+    
+    var body: some View {
+        NavigationStack {
+            Text("\(transferVm.ingressosSelecionados.count) ingressos selecionados")
+            VStack {
+                FloatingTextField(placeholder: "Email de destino", text: $email)
+                    .padding()
+                
+                // Caso userFound seja nil, a pesquisa ainda não foi realizada
+                // Caso userFound seja true, o usuário foi encontrado
+                // Caso userFound seja false, o usuário não foi encontrado
+                switch userFound {
+                case true:
+                    Text("Usuário encontrado")
+                        .font(.system(size: 12))
+                        .foregroundColor(.green)
+                    HStack{
+                        AsyncImage(url: URL(string: transferVm.fotoDestinatario)) { image in
+                            image.resizable()
+                        } placeholder: {
+                           Image(systemName: "person.crop.circle.fill")
+                                .frame(width: 50, height: 50)
+                        }
+                        .frame(width: 50, height: 50)
+                        .cornerRadius(50)
+                        Text(transferVm.nicknameDestinatario)
+                    }
+                    NavigationLink("Continuar", destination: ConfirmarTransferenciaView().environmentObject(transferVm)) // Navega para a próxima tela
+                        .buttonStyle(CustomButtonStyle())
+                        .padding()
+                case false:
+                    Text("Usuário não encontrado")
+                        .font(.system(size: 12))
+                        .foregroundColor(.red)
+                    Button("Pesquisar", action: {
+                        pesquisarUsuario()
+                    })
+                    .buttonStyle(CustomButtonStyle())
+                    .padding()
+                default:
+                    Button("Pesquisar", action: {
+                        pesquisarUsuario()
+                    })
+                    .buttonStyle(CustomButtonStyle())
+                    .padding()
+                }
             }
-            .navigationTitle("ingressos")
+        }
+    }
+    
+    func pesquisarUsuario() {
+        transferVm.findUser(email: email) { userId, urlFotoPerfil, nome, error in
+            if let userId = userId, let urlFotoPerfil = urlFotoPerfil, let nome = nome {
+                transferVm.destinatarioProprietarioIngressoId = userId
+                transferVm.fotoDestinatario = urlFotoPerfil
+                transferVm.nicknameDestinatario = nome
+                userFound = true
+                navigate = true
+            } else if error != nil {
+                userFound = false
+            } else {
+                userFound = false
+            }
         }
     }
 }
 
-struct ProximaView: View {
-    let ingressos: [Ingresso]
-    
-    @State var email = ""
-    
+struct ConfirmarTransferenciaView: View {
+    @EnvironmentObject var transferVm: TransferenciaViewModel
+    @State private var showAlert = false
+    @State private var transferSuccess = false
+
     var body: some View {
-        // Sua implementação da próxima tela aqui
-        NavigationStack{
-            Text("\(ingressos.count) ingressos selecionados")
-            FloatingTextField(placeholder: "Email de destino", text: $email)
-                .padding()
+        VStack {
+            Text("Transferir para \(transferVm.nicknameDestinatario)")
+            Image(systemName: "person.line.dotted.person.fill").resizable().frame(width: 70, height: 70).scaledToFit()
+
+            Button("Confirmar Transferência") {
+                            transferirIngressos()
+                        }
+            .buttonStyle(CustomButtonStyle()).padding()
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text(transferSuccess ? "Sucesso" : "Erro"), message: Text(transferSuccess ? "Ingressos transferidos com sucesso." : "Houve um erro na transferência. Por favor, tente novamente."), dismissButton: .default(Text("OK")))
+                        }
+                    }
+                }
+
+    func transferirIngressos() {
+        transferVm.transferirIngressos { success in
+            if success {
+                transferSuccess = success
+                showAlert = true
+                CompraViewModel().fetchComprasData(proprietarioId: transferVm.remetenteProprietarioIngressoId)
+                print("Transferência de ingressos bem-sucedida!")
+            } else {
+                print("A transferência de ingressos falhou.")
+            }
         }
+
     }
 }
+
+
+
 
 
 
@@ -312,7 +423,7 @@ struct TicketDetailsView: View {
                                         .cornerRadius(12) // Raio de borda arredondado
                                         
                                     })
-                                    Image(uiImage: generateQRCode(from: compra.eventoId))
+                                    Image(uiImage: generateQRCode(from: TicketInfo(eventoId: compra.eventoId, compraId: compra.id ?? "", dataEvento: compra.dataEvento, ingressoId: compra.ingressos[index].ingressoId ?? "", proprietarioNome: compra.ingressos[index].proprietario, documentoCPF: compra.ingressos[index].DocumentoCPF, tipoIngresso: compra.ingressos[index].tipoIngresso)))
                                         .interpolation(.none)
                                         .resizable()
                                         .scaledToFit()
@@ -330,11 +441,18 @@ struct TicketDetailsView: View {
         }
     }
     
-    func generateQRCode(from string: String) -> UIImage {
+
+    func generateQRCode(from ticket: TicketInfo) -> UIImage {
+        let encoder = JSONEncoder()
+        guard let encodedData = try? encoder.encode(ticket),
+              let encodedString = String(data: encodedData, encoding: .utf8) else {
+            return UIImage(systemName: "xmark.circle") ?? UIImage()
+        }
+        
         let context = CIContext()
         let filter = CIFilter.qrCodeGenerator()
 
-        let data = Data(string.utf8)
+        let data = Data(encodedString.utf8)
         filter.setValue(data, forKey: "inputMessage")
 
         if let outputImage = filter.outputImage {
@@ -345,6 +463,7 @@ struct TicketDetailsView: View {
 
         return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
+
 }
 
 

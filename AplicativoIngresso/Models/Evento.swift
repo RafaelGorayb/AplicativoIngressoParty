@@ -56,3 +56,44 @@ struct Colaborador {
     var gerarIngresso: Bool
 }
 
+
+extension Lote {
+    init(data: [String: Any]) {
+        self.numerolote = data["numerolote"] as? Int ?? 0
+        self.disponibilidade = data["disponibilidade"] as? Bool ?? false
+        self.preco = data["preco"] as? Double ?? 0.0
+        self.qtdDisponivel = data["qtdDisponivel"] as? Int ?? 0
+        self.qtdVendida = data["qtdVendida"] as? Int ?? 0
+    }
+    
+    func toDictionary() -> [String: Any] {
+        return [
+            "numerolote": numerolote,
+            "disponibilidade": disponibilidade,
+            "preco": preco,
+            "qtdDisponivel": qtdDisponivel,
+            "qtdVendida": qtdVendida
+        ]
+    }
+}
+
+extension TipoIngresso {
+    init(data: [String: Any]) {
+        self.tipo = data["tipo"] as? String ?? ""
+        self.disponibilidade = data["disponibilidade"] as? Bool ?? false
+        if let loteDataArray = data["lote"] as? [[String: Any]] {
+            self.lote = loteDataArray.map { Lote(data: $0) }
+        } else {
+            self.lote = []
+        }
+    }
+    
+    func toDictionary() -> [String: Any] {
+        return [
+            "tipo": tipo,
+            "disponibilidade": disponibilidade,
+            "lote": lote.map { $0.toDictionary() }
+        ]
+    }
+}
+

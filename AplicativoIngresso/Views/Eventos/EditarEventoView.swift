@@ -12,6 +12,7 @@ struct EditarEventoView: View {
     @EnvironmentObject var eventoVm: EventoViewModel
     @State private var showingConfirmation = false
     @State private var showingSuccess = false
+    @Environment (\.dismiss) var dismiss
     var body: some View {
         NavigationStack{
             VStack{
@@ -29,8 +30,26 @@ struct EditarEventoView: View {
                 Alert(title: Text("Confirmação"),
                       message: Text("Você deseja atualizar o evento?"),
                       primaryButton: .default(Text("Sim"), action: {
+                    if eventoVm.selectedImage != nil {
+                        eventoVm.uploadImage() { result in
+                            switch result {
+                            case .success(let url):
+                                eventoVm.evento.urlFotoCapa = url
+                                eventoVm.saveUpdatesEvento()
+                                eventoVm.fetchEventosPropriosData(userId: userVm.uuid ?? "n/A")
+                                dismiss()
+                                showingSuccess = true
+                            case .failure(let error):
+                                print("Failed to upload image: \(error)")
+                            }
+                        }
+                    }
+                    else{
                         eventoVm.saveUpdatesEvento()
                         eventoVm.fetchEventosPropriosData(userId: userVm.uuid ?? "n/A")
+                        dismiss()
+                        showingSuccess = true
+                    }
                       }),
                       secondaryButton: .cancel())
             }
@@ -41,7 +60,7 @@ struct EditarEventoView: View {
                 }
             }
         }
-        //.overlay(eventoVm.isSaving ? ProgressView() : nil) // ProgressView is displayed while the image is being uploaded
+        .overlay(eventoVm.isSaving ? ProgressView() : nil) // ProgressView is displayed while the image is being uploaded
         .accentColor(.pink)
     }
 }

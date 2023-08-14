@@ -13,12 +13,15 @@ struct ContentView: View {
     var body: some View {
         
         TabView{
-            HomeView(viewModel: NavigationModel()).environmentObject(eventoVm).environmentObject(userVm)
-                .tabItem({
-                    Label("Home", systemImage: "house")
-                })
+            HomeView()
+                .environmentObject(eventoVm).environmentObject(userVm)
+                .tabItem {
+                    VStack {
+                        Label("Home", systemImage: "house")
+                    }
+                }
             
-            ListaEventos().environmentObject(eventoVm).environmentObject(userVm)
+            ListaEventos().environmentObject(eventoVm).environmentObject(userVm).environmentObject(CompraViewModel())
                 .tabItem({
                     Label("Eventos", systemImage: "ticket")
                 })
@@ -40,5 +43,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environmentObject(UserViewModel())
             .environmentObject(EventoViewModel())
+            .environmentObject(CompraViewModel())
+        
     }
 }

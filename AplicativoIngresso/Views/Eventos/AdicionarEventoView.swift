@@ -219,16 +219,28 @@ struct addEventoListComponent: View{
                         .gradientForeground(colors: [.pink, .purple])
                     Spacer()
                 }
-                
+
                 Button(action: {
                     showingImagePicker = true
                 }, label: {
                     ZStack{
                         if let selectedImage = eventoVm.selectedImage {
+                            // Se uma imagem foi selecionada, mostre-a.
                             Image(uiImage: selectedImage)
                                 .resizable()
+                                .frame(height: 150)
                                 .aspectRatio(contentMode: .fit)
+                                .padding()
+                        } else if !eventoVm.evento.urlFotoCapa.isEmpty, let url = URL(string: eventoVm.evento.urlFotoCapa) {
+                            // Se existir uma URL para a imagem, carregue-a.
+                            AsyncImage(url: url) { image in
+                                image.resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } placeholder: {
+                                AnimatedPlaceholder()
+                            }
                         } else {
+                            // Caso contrário, mostre o ícone da câmera.
                             Image(systemName: "camera")
                         }
                         RoundedRectangle(cornerRadius: 10)
@@ -250,7 +262,6 @@ struct addEventoListComponent: View{
     }
 }
       
-
 
 
 
